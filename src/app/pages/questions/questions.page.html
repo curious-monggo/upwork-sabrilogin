@@ -65,10 +65,11 @@
         and climb a mountain or spend a week in the woods. Wash your spirit clean. -->
   
         <!-- Input with placeholder -->
-        <ion-input placeholder="Enter code here"></ion-input>
+        <ion-input placeholder="Enter code here" [(ngModel)]="codeTyped"></ion-input>
+        <!-- <ion-input type="text" placeholder="Email" [(ngModel)]="email"></ion-input>  -->
   
         <!-- Default -->
-        <ion-button color="success" (click)="showQuestion()">Next</ion-button>
+        <ion-button color="success" (click)="getQuestion()">Next</ion-button>
       </ion-card-content>
       
     </ion-card>
