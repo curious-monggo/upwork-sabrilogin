@@ -1,0 +1,7 @@
+{
+  "name": "sabrilogin",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
