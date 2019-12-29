@@ -11,26 +11,9 @@
 
 
 
-  <ion-card>
-    <ion-card-header>
-      <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-      <ion-card-title>To proceed, please enter the code.</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      <!-- Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean. -->
 
-      <!-- Input with placeholder -->
-      <ion-input placeholder="Enter code here"></ion-input>
-
-      <!-- Default -->
-      <ion-button color="success">Next</ion-button>
-    </ion-card-content>
-    
-  </ion-card>
   
-  <ion-card>
+  <ion-card *ngIf="hasCode; else enterCode">
     <ion-card-header>
       <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
       <!-- <ion-card-title>To proceed, please enter the code.</ion-card-title> -->
@@ -70,6 +53,26 @@
     </ion-card-content>
     
   </ion-card>
+  <ng-template #enterCode>
+    <ion-card >
+      <ion-card-header>
+        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+        <ion-card-title>To proceed, please enter the code.</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <!-- Keep close to Nature's heart... and break clear away, once in awhile,
+        and climb a mountain or spend a week in the woods. Wash your spirit clean. -->
   
+        <!-- Input with placeholder -->
+        <ion-input placeholder="Enter code here"></ion-input>
+  
+        <!-- Default -->
+        <ion-button color="success" (click)="showQuestion()">Next</ion-button>
+      </ion-card-content>
+      
+    </ion-card>
+  </ng-template>
+
 
 </ion-content> 

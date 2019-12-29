@@ -26,5 +26,9 @@
 			.timeout(59000) // 59 sec timeout
 			.map(res=>res);
 		}
+
+		// getData(params:string[], file) {
+		// 	return this.http.get(this.configUrl);
+		// }	
 	}
 

@@ -10,9 +10,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class QuestionsPage implements OnInit {
 
+  hasCode:boolean = false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  showQuestion(){
+    this.hasCode = true;
+  }
 }

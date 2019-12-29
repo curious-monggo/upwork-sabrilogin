@@ -117,4 +117,78 @@ export class LoginPage implements OnInit {
   openForgotPassword(){
     this.router.navigate(['/forgot-password']);
   }
+
+
+ async tryGetQuestions(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'get_question',
+        code: 'test-question-code'
+        // email: this.email,
+        // password: this.password
+      }
+
+      this.accsPrvds.postData(body, 'proses_api.php').subscribe((res:any)=>{
+        console.log(res.success);
+        console.log(res.result);
+        // if(res.success==true){
+       
+     
+        //   this.presentToast('Login successfuly');
+        //   // this.storage.set('storage_xxx', res.result); // create storage session
+        //   // this.navCtrl.navigateRoot(['/home']);
+        // }else{
+       
+    
+        //   this.presentToastWithOptions('Email or password is incorrect');
+
+        // }
+
+      },(err)=>{
+        
+        
+          this.presentToast('Timeout');
+          console.log(err)
+      });
+    });
+
+   }
+
+   async tryAnswer(){
+    return new Promise(resolve => {
+      let body = {
+        aksi: 'proses_answer',
+        choice_id: '3',
+        user_id: '4',
+        question_id: '1',
+
+        // email: this.email,
+        // password: this.password
+      }
+
+      this.accsPrvds.postData(body, 'proses_api.php').subscribe((res:any)=>{
+        console.log(res.success);
+        console.log(res.msg);
+        // if(res.success==true){
+       
+     
+        //   this.presentToast('Login successfuly');
+        //   // this.storage.set('storage_xxx', res.result); // create storage session
+        //   // this.navCtrl.navigateRoot(['/home']);
+        // }else{
+       
+    
+        //   this.presentToastWithOptions('Email or password is incorrect');
+
+        // }
+
+      },(err)=>{
+        
+        
+          this.presentToast('Timeout');
+          console.log(err)
+      });
+    });
+
+   }
 }
