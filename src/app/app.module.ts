@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccessProviders } from './providors/access-providers';
 
 import {enableProdMode} from '@angular/core';
+// import { YoutubePipe } from './pipes/youtube.pipe';
 
 
 enableProdMode();

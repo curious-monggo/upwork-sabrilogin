@@ -11,17 +11,18 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./questions.page.scss'],
 })
 export class QuestionsPage implements OnInit {
-  testVideoLink = "https://www.youtube.com/embed/URUJD5NEXC8";
 
 	datastorage: any;
 	user_id: string;
 
   hasCode:boolean = false;
+  showVideoCard:boolean = false;
   codeTyped:string = "";
   choices:any = [];
   question = {
     question_id: '',
     img_url: '',
+    video_url: '',
     text: '',
     created_at: ''
   };
@@ -53,9 +54,8 @@ export class QuestionsPage implements OnInit {
       console.log("the user id is", this.user_id);
   	});
   }
-  showQuestion(){
-    // this.question.img_url
-    // this.hasCode = true;
+  showQuestionCard(){
+    this.showVideoCard = false;
   }
   async getQuestion(){
     if(this.codeTyped == ""){
@@ -73,8 +73,6 @@ export class QuestionsPage implements OnInit {
           aksi: 'get_question',
           code: this.codeTyped,
           user_id: this.user_id
-          // email: this.email,
-          // password: this.password
         }
   
         this.accsPrvds.postData(body, 'proses_api.php').subscribe((res:any)=>{
@@ -86,10 +84,15 @@ export class QuestionsPage implements OnInit {
             // this.showQuestion();
 
             this.question.img_url = res.result.question.img_url;
+            this.question.video_url = res.result.question.video_url;
+            if(this.question.video_url){
+              this.showVideoCard = true;
+            }
             this.question.text = res.result.question.text;
             this.question.question_id = res.result.question.question_id;
             this.choices = res.result.choices;
             this.hasCode = true;
+            
             // this.presentToast('Login successfuly');
             // this.storage.set('storage_xxx', res.result); // create storage session
             // this.navCtrl.navigateRoot(['/home']);
@@ -203,4 +206,8 @@ export class QuestionsPage implements OnInit {
   
       await alert.present();
     }
+    // sanitize(link){
+    //   return this.dom.bypassSecurityTrustResourceUrl(link);
+    // }
+
 }
