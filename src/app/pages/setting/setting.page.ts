@@ -1,22 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-setting',
-  templateUrl: './setting.page.html',
-  styleUrls: ['./setting.page.scss'],
+  selector: "app-setting",
+  templateUrl: "./setting.page.html",
+  styleUrls: ["./setting.page.scss"]
 })
 export class SettingPage implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(
-    private router: Router
-  ) { }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  openUpdateProfile(){
-    console.log('Update profile...');
-    this.router.navigate(['/update-profile']);
+  openUpdateProfile() {
+    console.log("Update profile...");
+    this.router.navigate(["/update-profile"]);
   }
 }

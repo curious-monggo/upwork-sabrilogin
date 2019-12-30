@@ -1,7 +1,7 @@
 <ion-header no-border>
   <ion-toolbar color="success">
 	<ion-buttons slot="start">
-		<ion-back-button  defaultHref="home"></ion-back-button>
+		<ion-back-button ></ion-back-button>
 	  </ion-buttons>
     <ion-title>Update your profile</ion-title>
   </ion-toolbar>
@@ -55,7 +55,7 @@
     			</ion-select>
   			</ion-item>
 
-				<ion-button expand="full" class="ion-padding" color="success" [disabled]="disabledButton">Update</ion-button>
+				<ion-button expand="full" class="ion-padding" color="success" (click)="tryUpdateInfo()" [disabled]="disabledButton">Update</ion-button>
 
 		</div>
 
