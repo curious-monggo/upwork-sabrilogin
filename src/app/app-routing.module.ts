@@ -29,11 +29,11 @@ const routes: Routes = [
   },
   {
     path: 'setting',
-    loadChildren: () => import('./setting/setting.module').then( m => m.SettingPageModule)
+    loadChildren: () => import('./pages/setting/setting.module').then( m => m.SettingPageModule)
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
     path: 'update-profile',
