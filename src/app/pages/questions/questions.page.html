@@ -21,25 +21,34 @@
   
     <ion-card-content>
 
-      <ion-text color="dark">
+      <ion-text *ngIf="question.text" color="dark">
       <h1>{{question.text}}</h1>
       </ion-text>
-
+      <ion-img *ngIf="question.img_url" src="{{question.img_url}}"></ion-img>
+      <iframe 
+      width="560"
+      height="315" 
+      [src]="testVideoLink" 
+      ="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen></iframe>
 
       <ion-list>
-        <ion-radio-group  [(ngModel)]="answer">
+        <ion-radio-group  [(ngModel)]="chosen_choice_id">
           <!-- <ion-list-header>
             <ion-label>Multiple choice</ion-label>
           </ion-list-header> -->
       
           <ion-item *ngFor="let choice of choices">
-            <ion-label class="ion-text-wrap">{{choice.text}}
-              <ion-img src="{{choice.img_url}}"></ion-img>
+            <ion-label class="ion-text-wrap">
+              <ion-text>
+                <h5 *ngIf="choice.text">{{choice.text}}</h5>
+              </ion-text>
+              <ion-img *ngIf="choice.img_url" src="{{choice.img_url}}"></ion-img>
             </ion-label>
             <!-- <ion-thumbnail slot="end">
             <img src="{{choice.img_url}}">
             </ion-thumbnail> -->
-            <ion-radio slot="start" value="{{choice.text}}" checked></ion-radio>
+            <ion-radio slot="start" value="{{choice.choice_id}}"></ion-radio>
           </ion-item>
       
           <!-- <ion-item>
@@ -54,7 +63,7 @@
         </ion-radio-group>
       </ion-list>
       
-      <ion-button color="success" expand="block" (click)="onAnswer()">Answer</ion-button>
+      <ion-button color="success" expand="block" (click)="onAnswer()" [disabled]="answerDisabled">Answer</ion-button>
     </ion-card-content>
     
   </ion-card>

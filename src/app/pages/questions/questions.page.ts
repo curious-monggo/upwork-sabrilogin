@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccessProviders } from 'src/app/providors/access-providers';
-import { ToastController, LoadingController } from '@ionic/angular';
-
-
+import { ToastController, LoadingController, NavController, AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-questions',
@@ -11,15 +11,22 @@ import { ToastController, LoadingController } from '@ionic/angular';
   styleUrls: ['./questions.page.scss'],
 })
 export class QuestionsPage implements OnInit {
+  testVideoLink = "https://www.youtube.com/embed/URUJD5NEXC8";
+
+	datastorage: any;
+	user_id: string;
 
   hasCode:boolean = false;
   codeTyped:string = "";
   choices:any = [];
   question = {
+    question_id: '',
     img_url: '',
-    text: ''
+    text: '',
+    created_at: ''
   };
-  answer:string;
+  answerDisabled:boolean = false;
+  chosen_choice_id:string;
   // choice = {
   //   choice_id: '',
   //   img_url: '',
@@ -29,12 +36,23 @@ export class QuestionsPage implements OnInit {
     private router: Router,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private accsPrvds: AccessProviders
+    private alertCtrl: AlertController,
+    private accsPrvds: AccessProviders,
+    private storage: Storage,
+    public navCtrl: NavController,
+    private dom: DomSanitizer
     ) { }
 
   ngOnInit() {
   }
-
+  ionViewDidEnter(){
+  	this.storage.get('storage_xxx').then((res)=>{
+  		console.log(res);
+  		this.datastorage = res;
+  		this.user_id = this.datastorage.id_user;
+      console.log("the user id is", this.user_id);
+  	});
+  }
   showQuestion(){
     // this.question.img_url
     // this.hasCode = true;
@@ -53,7 +71,8 @@ export class QuestionsPage implements OnInit {
       return new Promise(resolve => {
         let body = {
           aksi: 'get_question',
-          code: this.codeTyped
+          code: this.codeTyped,
+          user_id: this.user_id
           // email: this.email,
           // password: this.password
         }
@@ -68,6 +87,7 @@ export class QuestionsPage implements OnInit {
 
             this.question.img_url = res.result.question.img_url;
             this.question.text = res.result.question.text;
+            this.question.question_id = res.result.question.question_id;
             this.choices = res.result.choices;
             this.hasCode = true;
             // this.presentToast('Login successfuly');
@@ -75,7 +95,7 @@ export class QuestionsPage implements OnInit {
             // this.navCtrl.navigateRoot(['/home']);
           }else{
             loader.dismiss();
-            this.presentToast('Code incorrect');
+            this.presentToast('Code may already be used or incorrect.');
             // this.presentToastWithOptions('Email or password is incorrect');
   
           }
@@ -101,6 +121,86 @@ export class QuestionsPage implements OnInit {
     }
 
     onAnswer(){
-      console.log(this.answer);
+      console.log(this.chosen_choice_id);
+      this.tryAnswer();
+    }
+
+
+    async tryAnswer(){
+      if(this.chosen_choice_id == "" || this.chosen_choice_id == undefined){
+        this.presentToast('Please choose an answer');
+      } else {
+        this.answerDisabled = true;
+        console.log(this.chosen_choice_id);
+  
+        const loader = await this.loadingCtrl.create({
+          message: 'Please wait........'
+        });
+        loader.present();
+  
+        return new Promise(resolve => {
+          let body = {
+            aksi: 'proses_answer',
+            choice_id: this.chosen_choice_id,
+            user_id: this.user_id,
+            question_id: this.question.question_id
+            // email: this.email,
+            // password: this.password
+          }
+    
+          this.accsPrvds.postData(body, 'proses_api.php').subscribe((res:any)=>{
+            console.log(res.success);
+            console.log(res.result);
+            if(res.success==true){
+              loader.dismiss();
+           
+              // this.showQuestion();
+  
+              // this.question.img_url = res.result.question.img_url;
+              // this.question.text = res.result.question.text;
+              // this.choices = res.result.choices;
+              // this.hasCode = true;
+              this.presentAlert('Saved!','',res.msg);
+              //  this.presentToast(res.msg);
+              // this.storage.set('storage_xxx', res.result); // create storage session
+              
+            }else{
+              loader.dismiss();
+              this.presentToast(res.msg);
+              this.answerDisabled = false;
+              // this.presentToast(res.msg);
+              // this.presentToastWithOptions('Email or password is incorrect');
+    
+            }
+    
+          },(err)=>{
+            
+              loader.dismiss();
+              this.presentToast('Timeout');
+              this.answerDisabled = false;
+              console.log(err)
+          });
+        });
+      }
+  
+  
+     }
+
+     async presentAlert(header, subheader, msg) {
+      const alert = await this.alertCtrl.create({
+        header: header,
+        subHeader: subheader,
+        message: msg,
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => {
+              this.navCtrl.navigateRoot(['/home']);
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
     }
 }
