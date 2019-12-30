@@ -14,7 +14,17 @@ export class QuestionsPage implements OnInit {
 
   hasCode:boolean = false;
   codeTyped:string = "";
-
+  choices:any = [];
+  question = {
+    img_url: '',
+    text: ''
+  };
+  answer:string;
+  // choice = {
+  //   choice_id: '',
+  //   img_url: '',
+  //   text: ''
+  // }
   constructor(
     private router: Router,
     private toastCtrl: ToastController,
@@ -26,13 +36,20 @@ export class QuestionsPage implements OnInit {
   }
 
   showQuestion(){
-    this.hasCode = true;
+    // this.question.img_url
+    // this.hasCode = true;
   }
   async getQuestion(){
     if(this.codeTyped == ""){
       this.presentToast('Code is required.');
     } else {
       console.log(this.codeTyped);
+
+      const loader = await this.loadingCtrl.create({
+        message: 'Please wait........'
+      });
+      loader.present();
+
       return new Promise(resolve => {
         let body = {
           aksi: 'get_question',
@@ -45,13 +62,19 @@ export class QuestionsPage implements OnInit {
           console.log(res.success);
           console.log(res.result);
           if(res.success==true){
+            loader.dismiss();
          
-            this.showQuestion();
+            // this.showQuestion();
+
+            this.question.img_url = res.result.question.img_url;
+            this.question.text = res.result.question.text;
+            this.choices = res.result.choices;
+            this.hasCode = true;
             // this.presentToast('Login successfuly');
             // this.storage.set('storage_xxx', res.result); // create storage session
             // this.navCtrl.navigateRoot(['/home']);
           }else{
-         
+            loader.dismiss();
             this.presentToast('Code incorrect');
             // this.presentToastWithOptions('Email or password is incorrect');
   
@@ -59,7 +82,7 @@ export class QuestionsPage implements OnInit {
   
         },(err)=>{
           
-          
+            loader.dismiss();
             this.presentToast('Timeout');
             console.log(err)
         });
@@ -75,5 +98,9 @@ export class QuestionsPage implements OnInit {
       duration: 1500,
     });
     toast.present();
+    }
+
+    onAnswer(){
+      console.log(this.answer);
     }
 }

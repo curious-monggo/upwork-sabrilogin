@@ -22,22 +22,27 @@
     <ion-card-content>
 
       <ion-text color="dark">
-        <h1>What is the powerhouse of the cell?</h1>
+      <h1>{{question.text}}</h1>
       </ion-text>
 
 
       <ion-list>
-        <ion-radio-group>
+        <ion-radio-group  [(ngModel)]="answer">
           <!-- <ion-list-header>
             <ion-label>Multiple choice</ion-label>
           </ion-list-header> -->
       
-          <ion-item>
-            <ion-label>Biff</ion-label>
-            <ion-radio slot="start" value="biff" checked></ion-radio>
+          <ion-item *ngFor="let choice of choices">
+            <ion-label class="ion-text-wrap">{{choice.text}}
+              <ion-img src="{{choice.img_url}}"></ion-img>
+            </ion-label>
+            <!-- <ion-thumbnail slot="end">
+            <img src="{{choice.img_url}}">
+            </ion-thumbnail> -->
+            <ion-radio slot="start" value="{{choice.text}}" checked></ion-radio>
           </ion-item>
       
-          <ion-item>
+          <!-- <ion-item>
             <ion-label>Mitrochondria</ion-label>
             <ion-radio slot="start" value="griff"></ion-radio>
           </ion-item>
@@ -45,11 +50,11 @@
           <ion-item>
             <ion-label>Buford</ion-label>
             <ion-radio slot="start" value="buford"></ion-radio>
-          </ion-item>
+          </ion-item> -->
         </ion-radio-group>
       </ion-list>
       
-      <ion-button color="success" expand="block">Answer</ion-button>
+      <ion-button color="success" expand="block" (click)="onAnswer()">Answer</ion-button>
     </ion-card-content>
     
   </ion-card>
