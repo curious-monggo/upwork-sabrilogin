@@ -96,9 +96,9 @@ export class LoginPage implements OnInit {
         {
           side: "end",
           // icon: 'star',
-          text: "Reset password",
+          text: "Forgot password",
           handler: () => {
-            console.log("Reset Password");
+            console.log("Forgot Password");
             this.openForgotPassword();
           }
         }

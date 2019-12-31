@@ -37,6 +37,10 @@ export class ForgotPasswordPage implements OnInit {
     //   console.log("the user id is", this.user_id);
     // });
   }
+  openChangePassword(){
+  	this.router.navigate(['/change-password']);
+  }
+
   async presentToast(a) {
     const toast = await this.toastCtrl.create({
       message: a,
@@ -130,7 +134,9 @@ export class ForgotPasswordPage implements OnInit {
             console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
+              this.storage.set("pw_info", body); // create storage session
               this.presentToast(res.msg);
+              this.openChangePassword();
               // this.presentToast("Go to change pass page");
               // this.showEnterEmailCard = false;
               // this.showQuestion();
@@ -159,8 +165,5 @@ export class ForgotPasswordPage implements OnInit {
         );
       });
     }
-  }
-  log(){
-    console.info(this.email);
   }
 }
