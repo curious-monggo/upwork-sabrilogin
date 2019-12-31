@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
 import { AccessProviders } from "src/app/providors/access-providers";
 import {
   ToastController,
@@ -31,13 +30,8 @@ export class QuestionsPage implements OnInit {
   };
   answerDisabled: boolean = false;
   chosen_choice_id: string;
-  // choice = {
-  //   choice_id: '',
-  //   img_url: '',
-  //   text: ''
-  // }
+
   constructor(
-    private router: Router,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
@@ -49,10 +43,8 @@ export class QuestionsPage implements OnInit {
   ngOnInit() {}
   ionViewDidEnter() {
     this.storage.get("storage_xxx").then(res => {
-      console.log(res);
       this.datastorage = res;
       this.user_id = this.datastorage.id_user;
-      console.log("the user id is", this.user_id);
     });
   }
   showQuestionCard() {
@@ -83,8 +75,6 @@ export class QuestionsPage implements OnInit {
             if (res.success == true) {
               loader.dismiss();
 
-              // this.showQuestion();
-
               this.question.img_url = res.result.question.img_url;
               this.question.video_url = res.result.question.video_url;
               if (this.question.video_url) {
@@ -94,14 +84,9 @@ export class QuestionsPage implements OnInit {
               this.question.question_id = res.result.question.question_id;
               this.choices = res.result.choices;
               this.hasCode = true;
-
-              // this.presentToast('Login successfuly');
-              // this.storage.set('storage_xxx', res.result); // create storage session
-              // this.navCtrl.navigateRoot(['/home']);
             } else {
               loader.dismiss();
               this.presentToast("Code may already be used or incorrect.");
-              // this.presentToastWithOptions('Email or password is incorrect');
             }
           },
           err => {
@@ -132,7 +117,6 @@ export class QuestionsPage implements OnInit {
       this.presentToast("Please choose an answer");
     } else {
       this.answerDisabled = true;
-      console.log(this.chosen_choice_id);
 
       const loader = await this.loadingCtrl.create({
         message: "Please wait........"
@@ -145,39 +129,23 @@ export class QuestionsPage implements OnInit {
           choice_id: this.chosen_choice_id,
           user_id: this.user_id,
           question_id: this.question.question_id
-          // email: this.email,
-          // password: this.password
         };
 
         this.accsPrvds.postData(body, "proses_api.php").subscribe(
           (res: any) => {
-            console.log(res.success);
-            console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
-
-              // this.showQuestion();
-
-              // this.question.img_url = res.result.question.img_url;
-              // this.question.text = res.result.question.text;
-              // this.choices = res.result.choices;
-              // this.hasCode = true;
               this.presentAlert("Saved!", "", res.msg);
-              //  this.presentToast(res.msg);
-              // this.storage.set('storage_xxx', res.result); // create storage session
             } else {
               loader.dismiss();
               this.presentToast(res.msg);
               this.answerDisabled = false;
-              // this.presentToast(res.msg);
-              // this.presentToastWithOptions('Email or password is incorrect');
             }
           },
           err => {
             loader.dismiss();
             this.presentToast("Timeout");
             this.answerDisabled = false;
-            console.log(err);
           }
         );
       });
@@ -201,7 +169,4 @@ export class QuestionsPage implements OnInit {
 
     await alert.present();
   }
-  // sanitize(link){
-  //   return this.dom.bypassSecurityTrustResourceUrl(link);
-  // }
 }

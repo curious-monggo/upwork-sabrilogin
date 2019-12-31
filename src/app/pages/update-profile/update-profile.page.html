@@ -1,63 +1,81 @@
 <ion-header no-border>
   <ion-toolbar color="success">
-	<ion-buttons slot="start">
-		<ion-back-button ></ion-back-button>
-	  </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Update your profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-list>
-			
+  <ion-list>
+    <div class="">
+      <ion-item>
+        <ion-input
+          type="text"
+          placeholder="First name"
+          [(ngModel)]="first_name"
+        ></ion-input>
+      </ion-item>
 
-		<div class="" >
+      <ion-item>
+        <ion-input
+          type="text"
+          placeholder="Last name"
+          [(ngModel)]="last_name"
+        ></ion-input>
+      </ion-item>
 
-			<ion-item>
-				<ion-input type="text" placeholder="First name" [(ngModel)]="first_name"></ion-input> 
-			</ion-item>
+      <ion-item>
+        <ion-input
+          type="tel"
+          placeholder="Phone number"
+          [(ngModel)]="phone"
+        ></ion-input>
+      </ion-item>
 
-			<ion-item>
-				<ion-input type="text" placeholder="Last name" [(ngModel)]="last_name"></ion-input> 
-			</ion-item>
+      <ion-item>
+        <ion-label style="color: #999;">Occupation</ion-label>
+        <ion-select interface="popover" [(ngModel)]="occupation">
+          <ion-select-option value="it">IT</ion-select-option>
+          <ion-select-option value="eng">Engineering</ion-select-option>
+          <ion-select-option value="bus">Business</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-			<ion-item>
-				<ion-input type="tel" placeholder="Phone number" [(ngModel)]="phone"></ion-input> 
-			</ion-item>
+      <ion-item>
+        <ion-input
+          type="text"
+          placeholder="Address"
+          [(ngModel)]="address"
+        ></ion-input>
+      </ion-item>
 
-			<ion-item>
-   				<ion-label style="color: #999;">Occupation</ion-label>
-    			<ion-select interface="popover" [(ngModel)]="occupation" >
-      				<ion-select-option value="it">IT</ion-select-option>
-      				<ion-select-option value="eng">Engineering</ion-select-option>
-      				<ion-select-option value="bus">Business</ion-select-option>
-    			</ion-select>
-  			</ion-item>
+      <ion-item>
+        <ion-label style="color: #999;">City</ion-label>
+        <ion-select interface="popover" [(ngModel)]="city">
+          <ion-select-option value="jed">Jeddah</ion-select-option>
+          <ion-select-option value="riy">Riyadh</ion-select-option>
+          <ion-select-option value="dam">Dammam</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-			<ion-item>
-				<ion-input type="text" placeholder="Address" [(ngModel)]="address"></ion-input> 
-			</ion-item>
+      <ion-item>
+        <ion-label style="color: #999;">Gender</ion-label>
+        <ion-select interface="popover" [(ngModel)]="gender">
+          <ion-select-option value="f">Female</ion-select-option>
+          <ion-select-option value="m">Male</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-			<ion-item>
-   				<ion-label style="color: #999;">City</ion-label>
-    			<ion-select interface="popover" [(ngModel)]="city" >
-      				<ion-select-option value="jed">Jeddah</ion-select-option>
-      				<ion-select-option value="riy">Riyadh</ion-select-option>
-      				<ion-select-option value="dam">Dammam</ion-select-option>
-    			</ion-select>
-  			</ion-item>
-
-			<ion-item>
-   				<ion-label style="color: #999;">Gender</ion-label>
-    			<ion-select interface="popover" [(ngModel)]="gender" >
-      				<ion-select-option value="f">Female</ion-select-option>
-      				<ion-select-option value="m">Male</ion-select-option>
-    			</ion-select>
-  			</ion-item>
-
-				<ion-button expand="full" class="ion-padding" color="success" (click)="tryUpdateInfo()" [disabled]="disabledButton">Update</ion-button>
-
-		</div>
-
-	</ion-list>
+      <ion-button
+        expand="full"
+        class="ion-padding"
+        color="success"
+        (click)="tryUpdateInfo()"
+        [disabled]="disabledButton"
+        >Update</ion-button
+      >
+    </div>
+  </ion-list>
 </ion-content>

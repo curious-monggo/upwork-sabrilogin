@@ -5,28 +5,38 @@
 </ion-header>
 
 <ion-content>
-	<ion-list>
-			
+  <ion-list>
+    <div class="">
+      <ion-item>
+        <ion-input
+          type="text"
+          placeholder="Email"
+          [(ngModel)]="email"
+        ></ion-input>
+      </ion-item>
 
-		<div class="" >
+      <ion-item>
+        <ion-input
+          type="Password"
+          placeholder="Password"
+          [(ngModel)]="password"
+        ></ion-input>
+      </ion-item>
 
-			<ion-item >
-				<ion-input type="text" placeholder="Email" [(ngModel)]="email"></ion-input> 
-			</ion-item>
+      <ion-button
+        expand="full"
+        class="ion-padding"
+        color="success"
+        (click)="tryLogin()"
+        >Login</ion-button
+      >
+    </div>
 
-			<ion-item >
-				<ion-input type="Password" placeholder="Password" [(ngModel)]="password"></ion-input>
-			</ion-item>
-
-				<ion-button expand="full" class="ion-padding" color="success" (click)="tryLogin()">Login</ion-button>
-
-		</div>
-
-		<p class="ion-padding info-1">
-			If you do not have an account <br> <span (click)="openRegister()">Register now</span>
-		</p>
-
-	</ion-list>
-	<!-- <ion-button (click)="tryGetQuestions()">Fetch</ion-button>
+    <p class="ion-padding info-1">
+      If you do not have an account <br />
+      <span (click)="openRegister()">Register now</span>
+    </p>
+  </ion-list>
+  <!-- <ion-button (click)="tryGetQuestions()">Fetch</ion-button>
 	<ion-button (click)="tryAnswer()">Answer</ion-button> -->
 </ion-content>

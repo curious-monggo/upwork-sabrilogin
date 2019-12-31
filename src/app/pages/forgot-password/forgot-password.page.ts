@@ -29,14 +29,6 @@ export class ForgotPasswordPage implements OnInit {
 
   ngOnInit() {
   }
-  ionViewDidEnter() {
-    // this.storage.get("storage_xxx").then(res => {
-    //   console.log(res);
-    //   this.datastorage = res;
-    //   this.user_id = this.datastorage.id_user;
-    //   console.log("the user id is", this.user_id);
-    // });
-  }
   openChangePassword(){
   	this.router.navigate(['/change-password']);
   }
@@ -53,7 +45,6 @@ export class ForgotPasswordPage implements OnInit {
       this.presentToast("Please enter your email");
     } else {
       // this.answerDisabled = true;
-      // console.log(this.chosen_choice_id);
 
       const loader = await this.loadingCtrl.create({
         message: "Please wait........"
@@ -64,42 +55,24 @@ export class ForgotPasswordPage implements OnInit {
         let body = {
           aksi: "proses_send_email",
           email: this.email,
-          // user_id: this.user_id,
-          // question_id: this.question.question_id
-          // email: this.email,
-          // password: this.password
         };
 
         this.accsPrvds.postData(body, "proses_api.php").subscribe(
           (res: any) => {
-            console.log(res.success);
-            console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
               this.presentToast(res.msg);
               this.showEnterEmailCard = false;
-              // this.showQuestion();
-
-              // this.question.img_url = res.result.question.img_url;
-              // this.question.text = res.result.question.text;
-              // this.choices = res.result.choices;
-              // this.hasCode = true;
-              // this.presentAlert("Saved!", "", res.msg);
-              //  this.presentToast(res.msg);
-              // this.storage.set('storage_xxx', res.result); // create storage session
             } else {
               loader.dismiss();
               this.presentToast(res.msg);
               // this.answerDisabled = false;
-              // this.presentToast(res.msg);
-              // this.presentToastWithOptions('Email or password is incorrect');
             }
           },
           err => {
             loader.dismiss();
             this.presentToast("Timeout");
             // this.answerDisabled = false;
-            console.log(err);
           }
         );
       });
@@ -110,7 +83,6 @@ export class ForgotPasswordPage implements OnInit {
       this.presentToast("Please enter the code");
     } else {
       // this.answerDisabled = true;
-      // console.log(this.chosen_choice_id);
 
       const loader = await this.loadingCtrl.create({
         message: "Please wait........"
@@ -122,45 +94,25 @@ export class ForgotPasswordPage implements OnInit {
           aksi: "proses_code",
           code: this.code,
           email: this.email
-          // user_id: this.user_id,
-          // question_id: this.question.question_id
-          // email: this.email,
-          // password: this.password
         };
 
         this.accsPrvds.postData(body, "proses_api.php").subscribe(
           (res: any) => {
-            console.log(res.success);
-            console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
               this.storage.set("pw_info", body); // create storage session
               this.presentToast(res.msg);
               this.openChangePassword();
-              // this.presentToast("Go to change pass page");
-              // this.showEnterEmailCard = false;
-              // this.showQuestion();
-
-              // this.question.img_url = res.result.question.img_url;
-              // this.question.text = res.result.question.text;
-              // this.choices = res.result.choices;
-              // this.hasCode = true;
-              // this.presentAlert("Saved!", "", res.msg);
-              //  this.presentToast(res.msg);
-              // this.storage.set('storage_xxx', res.result); // create storage session
             } else {
               loader.dismiss();
               this.presentToast(res.msg);
               // this.answerDisabled = false;
-              // this.presentToast(res.msg);
-              // this.presentToastWithOptions('Email or password is incorrect');
             }
           },
           err => {
             loader.dismiss();
             this.presentToast("Timeout");
             // this.answerDisabled = false;
-            console.log(err);
           }
         );
       });

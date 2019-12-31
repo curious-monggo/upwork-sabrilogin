@@ -41,6 +41,23 @@ export class ChangePasswordPage implements OnInit {
       console.log("the user id is", this.email);
     });
   }
+  async presentAlert(header, subheader, msg) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      subHeader: subheader,
+      message: msg,
+      buttons: [
+        {
+          text: "Ok",
+          handler: () => {
+            this.openLogin();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   openLogin(){
   	this.router.navigate(['/login']);
   }
@@ -60,7 +77,6 @@ export class ChangePasswordPage implements OnInit {
       this.presentToast("Passwords did not match");
     } else {
       // this.answerDisabled = true;
-      // console.log(this.chosen_choice_id);
 
       const loader = await this.loadingCtrl.create({
         message: "Please wait........"
@@ -81,27 +97,12 @@ export class ChangePasswordPage implements OnInit {
             console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
-              this.presentToast(res.msg);
               this.storage.clear();
-              this.openLogin();
-              // this.openChangePassword();
-              // this.presentToast("Go to change pass page");
-              // this.showEnterEmailCard = false;
-              // this.showQuestion();
-
-              // this.question.img_url = res.result.question.img_url;
-              // this.question.text = res.result.question.text;
-              // this.choices = res.result.choices;
-              // this.hasCode = true;
-              // this.presentAlert("Saved!", "", res.msg);
-              //  this.presentToast(res.msg);
-              // this.storage.set('storage_xxx', res.result); // create storage session
+              this.presentAlert('Success!', '' , res.msg);
             } else {
               loader.dismiss();
               this.presentToast(res.msg);
               // this.answerDisabled = false;
-              // this.presentToast(res.msg);
-              // this.presentToastWithOptions('Email or password is incorrect');
             }
           },
           err => {

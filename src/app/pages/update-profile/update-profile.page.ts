@@ -45,7 +45,6 @@ export class UpdateProfilePage implements OnInit {
       this.address = this.datastorage.address;
       this.city = this.datastorage.city;
       this.gender = this.datastorage.gender;
-      console.log("the user records are", this.datastorage);
     });
   }
 
@@ -92,13 +91,6 @@ export class UpdateProfilePage implements OnInit {
             if (res.success == true) {
               loader.dismiss();
 
-              // this.showQuestion();
-
-              // this.question.img_url = res.result.question.img_url;
-              // this.question.text = res.result.question.text;
-              // this.choices = res.result.choices;
-              // this.hasCode = true;
-              // this.presentAlert('Saved!','',res.msg);
               this.presentAlert("Updated!", res.msg);
               this.storage.clear();
               this.storage.set("storage_xxx", res.result); // create storage session
@@ -107,8 +99,6 @@ export class UpdateProfilePage implements OnInit {
               loader.dismiss();
               this.presentToast(res.msg);
               this.disabledButton = false;
-              // this.presentToast(res.msg);
-              // this.presentToastWithOptions('Email or password is incorrect');
             }
           },
           err => {
