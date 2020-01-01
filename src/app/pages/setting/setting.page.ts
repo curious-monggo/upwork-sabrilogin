@@ -12,7 +12,6 @@ export class SettingPage implements OnInit {
   ngOnInit() {}
 
   openUpdateProfile() {
-    console.log("Update profile...");
     this.router.navigate(["/update-profile"]);
   }
 }

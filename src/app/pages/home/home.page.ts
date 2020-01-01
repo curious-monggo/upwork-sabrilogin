@@ -32,7 +32,6 @@ export class HomePage implements OnInit {
 
   ionViewDidEnter() {
     this.storage.get("storage_xxx").then(res => {
-      console.log(res);
       this.datastorage = res;
       this.name = this.datastorage.first_name;
     });

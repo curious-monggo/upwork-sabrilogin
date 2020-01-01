@@ -77,7 +77,6 @@ export class QuestionsPage implements OnInit {
     if (this.codeTyped == "") {
       this.presentToast("Code is required.");
     } else {
-      console.log(this.codeTyped);
 
       const loader = await this.loadingCtrl.create({
         message: "Please wait........"
@@ -94,8 +93,6 @@ export class QuestionsPage implements OnInit {
 
         this.accsPrvds.postData(body, "proses_api.php").subscribe(
           (res: any) => {
-            console.log(res.success);
-            console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
 
@@ -119,7 +116,6 @@ export class QuestionsPage implements OnInit {
           err => {
             loader.dismiss();
             this.presentToast("Timeout");
-            console.log(err);
           }
         );
       });
@@ -135,7 +131,6 @@ export class QuestionsPage implements OnInit {
   }
 
   onAnswer() {
-    console.log(this.chosen_choice_id);
     this.tryAnswer();
   }
   //same model of code, only different process. Here we try to save the answer

@@ -39,7 +39,6 @@ export class UpdateProfilePage implements OnInit {
   ngOnInit() {}
   ionViewDidEnter() {
     this.storage.get("storage_xxx").then(res => {
-      console.log(res);
       this.datastorage = res;
       this.user_id = this.datastorage.id_user;
       this.first_name = this.datastorage.first_name;
@@ -90,8 +89,6 @@ export class UpdateProfilePage implements OnInit {
 
         this.accsPrvds.postData(body, "proses_api.php").subscribe(
           (res: any) => {
-            console.log(res.success);
-            console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
 
@@ -109,7 +106,6 @@ export class UpdateProfilePage implements OnInit {
             loader.dismiss();
             this.presentToast("Timeout");
             this.disabledButton = false;
-            console.log(err);
           }
         );
       });

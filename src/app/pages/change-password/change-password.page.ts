@@ -37,11 +37,9 @@ export class ChangePasswordPage implements OnInit {
   }
   ionViewDidEnter() {
     this.storage.get("pw_info").then(res => {
-      console.log(res);
       this.datastorage = res;
       this.code = this.datastorage.code;
       this.email = this.datastorage.email;
-      console.log("the user id is", this.email);
     });
   }
   async presentAlert(header, subheader, msg) {
@@ -96,8 +94,6 @@ export class ChangePasswordPage implements OnInit {
 
         this.accsPrvds.postData(body, "proses_api.php").subscribe(
           (res: any) => {
-            console.log(res.success);
-            console.log(res.result);
             if (res.success == true) {
               loader.dismiss();
               this.storage.clear();
@@ -112,7 +108,6 @@ export class ChangePasswordPage implements OnInit {
             loader.dismiss();
             this.presentToast("Timeout");
             // this.answerDisabled = false;
-            console.log(err);
           }
         );
       });

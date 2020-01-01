@@ -73,7 +73,6 @@ export class LoginPage implements OnInit {
             loader.dismiss();
             this.disabledButton = false;
             this.presentToast("Timeout");
-            console.log(err);
           }
         );
       });
@@ -97,7 +96,6 @@ export class LoginPage implements OnInit {
           side: "end",
           text: "Forgot password",
           handler: () => {
-            console.log("Forgot Password");
             this.openForgotPassword();
           }
         }
