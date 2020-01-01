@@ -11,6 +11,11 @@ import { Storage } from "@ionic/storage";
   styleUrls: ['./forgot-password.page.scss'],
 })
 export class ForgotPasswordPage implements OnInit {
+  /*
+  * Asks user to enter password 2 times
+  * Aksi: proses_send_email, proses_code
+  */
+
   datastorage: any;
   user_id: string;
 

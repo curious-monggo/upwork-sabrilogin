@@ -12,6 +12,7 @@
   <!-- if videoCardIsVisible == true, then display this card.Else, display ng-component questionCard below -->
   <ion-card *ngIf="videoCardIsVisible; else questionCard">
     <ion-card-content>
+      <!-- here, the pipe is used -->
       <iframe width="300" height="200" [src]="question.video_url | youtube" allowfullscreen></iframe>
       <ion-button color="success" (click)="hideVideoCard()">Next</ion-button>
     </ion-card-content>

@@ -10,7 +10,10 @@ import { Storage } from "@ionic/storage";
   styleUrls: ['./change-password.page.scss'],
 })
 export class ChangePasswordPage implements OnInit {
-
+  /*
+  * Asks user to enter password 2 times
+  * Aksi: proses_change_password
+  */
 
   datastorage: any;
   code: string;

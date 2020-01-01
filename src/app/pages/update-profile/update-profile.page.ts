@@ -13,6 +13,10 @@ import {
   styleUrls: ["./update-profile.page.scss"]
 })
 export class UpdateProfilePage implements OnInit {
+  /*
+  * Reuses the functions of register
+  * Aksi: proses_update_info
+  */
   datastorage: any;
   user_id: string = "";
   first_name: string = "";
