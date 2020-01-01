@@ -9,37 +9,39 @@
 
 <ion-content>
 
-
-  <ion-card *ngIf="showVideoCard; else questionCard">
+  <!-- if videoCardIsVisible == true, then display this card.Else, display ng-component questionCard below -->
+  <ion-card *ngIf="videoCardIsVisible; else questionCard">
     <ion-card-content>
       <iframe width="300" height="200" [src]="question.video_url | youtube" allowfullscreen></iframe>
-      <ion-button color="success" (click)="showQuestionCard()">Next</ion-button>
+      <ion-button color="success" (click)="hideVideoCard()">Next</ion-button>
     </ion-card-content>
   </ion-card>
 
   
   <ng-template #questionCard>
-    <ion-card *ngIf="hasCode; else enterCode">
+    <!-- Same logic, ngIf and ng-template is simply th if else in html in angular -->
+    <ion-card *ngIf="questionCardIsVisible; else enterCode">
       <ion-card-header>
-        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
-        <!-- <ion-card-title>To proceed, please enter the code.</ion-card-title> -->
       </ion-card-header>
     
       <ion-card-content>
-  
+        <!-- If there is a question.text, we display it. 
+          This is how I used it to make the view dynamic -->
         <ion-text *ngIf="question.text" color="dark">
         <h1>{{question.text}}</h1>
         </ion-text>
         <ion-img *ngIf="question.img_url" src="{{question.img_url}}"></ion-img>
   
-       
-  
         <ion-list>
+          <!-- Chosen choice is saved in chosen_choice_id, it updates everytime the user answers -->
           <ion-radio-group  [(ngModel)]="chosen_choice_id">
             <ion-list-header>
               <ion-label>Multiple choice</ion-label>
             </ion-list-header>
-        
+            <!-- ngFor is same as the forLoop and forEachLoop, but simpler 
+            and intuitive for displaying ui directly on html 
+            var choice is a reference of the value in each cycle of the loop
+            Here we access the attributes of each choice-->
             <ion-item *ngFor="let choice of choices">
               <ion-label class="ion-text-wrap">
                 <ion-text>
@@ -47,21 +49,9 @@
                 </ion-text>
                 <ion-img *ngIf="choice.img_url" src="{{choice.img_url}}"></ion-img>
               </ion-label>
-              <!-- <ion-thumbnail slot="end">
-              <img src="{{choice.img_url}}">
-              </ion-thumbnail> -->
               <ion-radio slot="start" value="{{choice.choice_id}}"></ion-radio>
             </ion-item>
         
-            <!-- <ion-item>
-              <ion-label>Mitrochondria</ion-label>
-              <ion-radio slot="start" value="griff"></ion-radio>
-            </ion-item>
-        
-            <ion-item>
-              <ion-label>Buford</ion-label>
-              <ion-radio slot="start" value="buford"></ion-radio>
-            </ion-item> -->
           </ion-radio-group>
         </ion-list>
         
@@ -73,19 +63,13 @@
   <ng-template #enterCode>
     <ion-card >
       <ion-card-header>
-        <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
         <ion-card-title>To proceed, please enter the code.</ion-card-title>
       </ion-card-header>
     
       <ion-card-content>
-        <!-- Keep close to Nature's heart... and break clear away, once in awhile,
-        and climb a mountain or spend a week in the woods. Wash your spirit clean. -->
-  
-        <!-- Input with placeholder -->
+        <!-- We ask the user a code, before showing the video and then finally the question -->
         <ion-input placeholder="Enter code here" [(ngModel)]="codeTyped"></ion-input>
-        <!-- <ion-input type="text" placeholder="Email" [(ngModel)]="email"></ion-input>  -->
-  
-        <!-- Default -->
+
         <ion-button color="success" (click)="getQuestion()">Next</ion-button>
       </ion-card-content>
       
